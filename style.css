@@ -1,0 +1,304 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+}
+
+.screen {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    color: #444;
+    margin-bottom: 1.5rem;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #764ba2;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.progress {
+    color: #666;
+}
+
+#question-text {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+#options-container {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.option {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.option:hover {
+    background: #eee;
+}
+
+.option.selected {
+    background: #667eea;
+    color: white;
+}
+
+.option.correct {
+    background: #4CAF50;
+    color: white;
+}
+
+.option.wrong {
+    background: #f44336;
+    color: white;
+}
+
+/* Container styles */
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin: 2rem auto;
+    max-width: 1000px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.level-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.8rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.level-card::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.level-card:hover::before {
+    opacity: 1;
+    top: -30px;
+}
+
+/* Available level style */
+.level-card.available {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    animation: pulse 2s infinite;
+}
+
+.level-card.available:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+/* Locked level style */
+.level-card.locked {
+    background: white;
+    color: #666;
+    opacity: 0.9;
+}
+
+.level-card.locked:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.level-card.locked::after {
+    content: "🔒";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+}
+
+/* Unlocked level style */
+.level-card.unlocked {
+    background: linear-gradient(135deg, #764ba2, #667eea);
+    color: white;
+}
+
+.level-card.unlocked:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(118, 75, 162, 0.4);
+}
+
+/* Card content styles */
+.level-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.level-status {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0.8rem 0;
+    color: #000;
+}
+
+.level-desc {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #000;
+}
+
+.locked .level-desc {
+    color: #888;
+}
+
+.unlocked .level-desc,
+.available .level-desc {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(76, 175, 80, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .level-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .level-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Add styles for navigation buttons */
+.navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.navigation-buttons button {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#prev-btn {
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+}
+
+#prev-btn:hover:not(:disabled) {
+    background: #e0e0e0;
+}
+
+#prev-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#next-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+}
+
+#next-btn:hover:not(:disabled) {
+    background: #5a71d6;
+}
+
+#next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+} 

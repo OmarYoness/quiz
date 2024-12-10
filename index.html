@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Level Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="start-screen" class="screen">
+            <h1>Welcome to the Multi-Level Quiz</h1>
+            <p>Complete each level with at least 60% accuracy to proceed!</p>
+            <button onclick="startQuiz()">Start Quiz</button>
+        </div>
+
+        <div id="hub-screen" class="screen hidden">
+            <h1>Java Quiz</h1>
+            <div class="level-grid">
+                <div class="level-card completed" onclick="selectLevel(1)">
+                    <h2>Level 1</h2>
+                    <p class="level-status">Completed</p>
+                    <p class="level-desc">Basic Java Concepts</p>
+                </div>
+                <div class="level-card unlocked" onclick="selectLevel(2)">
+                    <h2>Level 2</h2>
+                    <p class="level-status">Unlocked</p>
+                    <p class="level-desc">Intermediate Java</p>
+                </div>
+                <div class="level-card locked">
+                    <h2>Level 3</h2>
+                    <p class="level-status">Locked</p>
+                    <p class="level-desc">Advanced Java</p>
+                </div>
+                <div class="level-card locked">
+                    <h2>Level 4</h2>
+                    <p class="level-status">Locked</p>
+                    <p class="level-desc">Expert Java</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="screen hidden">
+            <div class="header">
+                <div class="header-left">
+                    <button id="back-to-hub" onclick="confirmReturn()">← Back to Hub</button>
+                </div>
+                <div class="header-center">
+                    <h2>Level <span id="current-level">1</span></h2>
+                    <div class="progress">
+                        Question <span id="current-question">1</span>/10
+                    </div>
+                </div>
+            </div>
+            <div id="question-container">
+                <p id="question-text"></p>
+                <div id="options-container"></div>
+            </div>
+            <div class="navigation-buttons">
+                <button id="prev-btn" onclick="previousQuestion()" disabled>Previous</button>
+                <button id="next-btn" onclick="nextQuestion()" disabled>Next</button>
+            </div>
+        </div>
+
+        <div id="result-screen" class="screen hidden">
+            <h2>Level Complete!</h2>
+            <p>Your score: <span id="score">0</span>/10</p>
+            <p id="result-message"></p>
+            <button id="continue-btn" onclick="handleContinue()">Continue</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
